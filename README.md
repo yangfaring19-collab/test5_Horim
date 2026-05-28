@@ -65,14 +65,14 @@ PW: 1234
 # 🛠️ 실행 방법
 
 ## 1. 프로젝트 다운로드
-
+```
 git clone https://github.com/yangfaring19-collab/test5_Horim.git
 cd test5_Horim
-
+```
 ---
 
 ## 2. 가상환경 생성 및 실행
-
+```
 ### Windows
 python -m venv venv
 venv\Scripts\activate
@@ -80,17 +80,17 @@ venv\Scripts\activate
 ### Linux / Mac
 python3 -m venv venv
 source venv/bin/activate
-
+```
 ---
 
 ## 3. 패키지 설치
-
+```
 pip install -r requirements.txt
-
+```
 ---
 
 ## 4. MySQL 설정
-
+```
 CREATE DATABASE todo_log;
 
 USE todo_log;
@@ -101,19 +101,19 @@ CREATE TABLE query_log (
     sql_text TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
+```
 ---
 
 ## 5. Flask 실행
-
+```
 python app.py
-
+```
 ---
 
 ## 6. 브라우저 접속
-
+```
 http://localhost:5000
-
+```
 ---
 
 
