@@ -71,8 +71,8 @@ def log_query(query_type, sql_text):
     try:
         conn = mysql.connector.connect(
             host="10.0.2.3",
-            user="root",
-            password="12345",   # ← 본인 MySQL 비밀번호
+            user="hancom",
+            password="1234",   # ← 본인 MySQL 비밀번호
             database="todo_log"
         )
 
