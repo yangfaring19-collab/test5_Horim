@@ -38,7 +38,7 @@ $(document).ready(function () {
 
                     <div class="todo-buttons">
                         <button class="edit-btn">수정</button>
-                        <button class="save-btn hidden">💾</button>
+                        <button class="save-btn hidden">저장</button>
                         <button class="complete-btn">
                             ${todo.completed ? "취소" : "완료"}
                         </button>
@@ -133,16 +133,24 @@ $(document).ready(function () {
     // -----------------------------
     $(document).on("click", ".complete-btn", function () {
 
-        const id = $(this).closest(".todo-item").data("id");
+        const item = $(this).closest(".todo-item");
+        const id = item.data("id");
+
+        // 현재 상태 판별 (UI 기준)
+        const isCompleted = item.find(".todo-text").hasClass("completed");
 
         $.ajax({
             url: `/todos/${id}`,
             type: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify({
+                completed: isCompleted ? 0 : 1
+            }),
             success: function () {
-                loadTodos();
+                loadTodos(); // 다시 렌더링
             },
             error: function () {
-                alert("상태 변경 실패");
+                alert("완료 상태 변경 실패");
             }
         });
 
