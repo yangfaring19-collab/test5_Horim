@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify, session, redirect
 from flask_cors import CORS
 import sqlite3
+from mysql_logger import log_query
 
 app = Flask(__name__)
 app.secret_key = "secret_key_for_session"
@@ -91,10 +92,10 @@ def login():
         "SELECT * FROM member WHERE uid=? AND upwd=?",
         (uid, upwd)
     )
-    # log_query(
-    #     "SELECT * FROM member WHERE uid=? AND upwd=?",
-    #     (uid, upwd)
-    # )
+    log_query(
+        "select",
+        f"SELECT * FROM member WHERE uid={uid} AND upwd={upwd}"
+    )
 
     user = cur.fetchone()
     conn.close()
@@ -122,10 +123,10 @@ def get_todos():
         (session["uid"],)
     )
 
-    # log_query(
-    #     "select",
-    #     f"SELECT * FROM todolist WHERE uid='{session['uid']}'"
-    # )
+    log_query(
+        "select",
+        f"SELECT * FROM todolist WHERE uid='{session['uid']}'"
+    )
 
     rows = cur.fetchall()
     conn.close()
@@ -159,10 +160,10 @@ def add_todo():
         "INSERT INTO todolist (title, uid) VALUES (?, ?)",
         (title, session["uid"])
     )
-    # log_query(
-    #     "INSERT INTO todolist (title, uid) VALUES (?, ?)",
-    #     (title, session["uid"])
-    # )
+    log_query(
+        'insert',
+        f"INSERT INTO todolist (title, uid) VALUES ({title}, {session['uid']})"
+    )
 
     conn.commit()
     conn.close()
@@ -186,10 +187,10 @@ def update_todo(todo_id):
             "UPDATE todolist SET title=? WHERE id=? AND uid=?",
             (data["title"], todo_id, session["uid"])
         )
-        # log_query(
-        #     "UPDATE todolist SET title=? WHERE id=? AND uid=?",
-        #     (data["title"], todo_id, session["uid"])
-        # )
+        log_query(
+            'update',
+            f"UPDATE todolist SET title={data['title']} WHERE id={todo_id} AND uid={session['uid']}"
+        )
 
     # completed 토글
     elif "completed" in data:
@@ -197,10 +198,10 @@ def update_todo(todo_id):
             "UPDATE todolist SET completed=? WHERE id=? AND uid=?",
             (data["completed"], todo_id, session["uid"])
         )
-        # log_query(
-        #     "UPDATE todolist SET completed=? WHERE id=? AND uid=?",
-        #     (data["completed"], todo_id, session["uid"])
-        # )
+        log_query(
+            'update',
+            f"UPDATE todolist SET completed={data["completed"]} WHERE id={todo_id} AND uid={session["uid"]}"
+        )
 
     conn.commit()
     conn.close()
@@ -221,10 +222,10 @@ def delete_todo(todo_id):
         "DELETE FROM todolist WHERE id=? AND uid=?",
         (todo_id, session["uid"])
     )
-    # log_query(
-    #     "DELETE FROM todolist WHERE id=? AND uid=?",
-    #     (todo_id, session["uid"])
-    # )
+    log_query(
+        'delete',
+        f"DELETE FROM todolist WHERE id={todo_id} AND uid={session["uid"]}"
+    )
 
     conn.commit()
     conn.close()
