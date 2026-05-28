@@ -129,10 +129,10 @@ http://localhost:5000
 
 # 📡 API 구조
 
-GET    /todos
-POST   /todos
-PUT    /todos/<id>
-DELETE /todos/<id>
+- GET    /todos
+- POST   /todos
+- PUT    /todos/<id>
+- DELETE /todos/<id>
 
 ---
 
