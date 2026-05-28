@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, jsonify, session, redirect
 from flask_cors import CORS
 import sqlite3
-import mysql.connector
-from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = "secret_key_for_session"
@@ -60,43 +58,6 @@ def init_db():
     conn.commit()
     conn.close()
 
-    
-# -----------------------------
-# MariaDB에 Query 구문 저장
-# -----------------------------
-def log_query(query_type, sql_text):
-
-    conn = None
-
-    try:
-        conn = mysql.connector.connect(
-            host="10.0.2.3",
-            user="hancom",
-            password="1234",   # ← 본인 MySQL 비밀번호
-            database="todo_log"
-        )
-
-        cur = conn.cursor()
-
-        sql = """
-        INSERT INTO query_log (type, sql_text, created_at)
-        VALUES (%s, %s, %s)
-        """
-
-        cur.execute(sql, (
-            query_type,
-            sql_text,
-            datetime.now()
-        ))
-
-        conn.commit()
-
-    except Exception as e:
-        print("MySQL log error:", e)
-
-    finally:
-        if conn and conn.is_connected():
-            conn.close()
 
 
 # -----------------------------
@@ -130,10 +91,10 @@ def login():
         "SELECT * FROM member WHERE uid=? AND upwd=?",
         (uid, upwd)
     )
-    log_query(
-        "SELECT * FROM member WHERE uid=? AND upwd=?",
-        (uid, upwd)
-    )
+    # log_query(
+    #     "SELECT * FROM member WHERE uid=? AND upwd=?",
+    #     (uid, upwd)
+    # )
 
     user = cur.fetchone()
     conn.close()
@@ -161,10 +122,10 @@ def get_todos():
         (session["uid"],)
     )
 
-    log_query(
-        "select",
-        f"SELECT * FROM todolist WHERE uid='{session['uid']}'"
-    )
+    # log_query(
+    #     "select",
+    #     f"SELECT * FROM todolist WHERE uid='{session['uid']}'"
+    # )
 
     rows = cur.fetchall()
     conn.close()
@@ -198,10 +159,10 @@ def add_todo():
         "INSERT INTO todolist (title, uid) VALUES (?, ?)",
         (title, session["uid"])
     )
-    log_query(
-        "INSERT INTO todolist (title, uid) VALUES (?, ?)",
-        (title, session["uid"])
-    )
+    # log_query(
+    #     "INSERT INTO todolist (title, uid) VALUES (?, ?)",
+    #     (title, session["uid"])
+    # )
 
     conn.commit()
     conn.close()
@@ -225,10 +186,10 @@ def update_todo(todo_id):
             "UPDATE todolist SET title=? WHERE id=? AND uid=?",
             (data["title"], todo_id, session["uid"])
         )
-        log_query(
-            "UPDATE todolist SET title=? WHERE id=? AND uid=?",
-            (data["title"], todo_id, session["uid"])
-        )
+        # log_query(
+        #     "UPDATE todolist SET title=? WHERE id=? AND uid=?",
+        #     (data["title"], todo_id, session["uid"])
+        # )
 
     # completed 토글
     elif "completed" in data:
@@ -236,10 +197,10 @@ def update_todo(todo_id):
             "UPDATE todolist SET completed=? WHERE id=? AND uid=?",
             (data["completed"], todo_id, session["uid"])
         )
-        log_query(
-            "UPDATE todolist SET completed=? WHERE id=? AND uid=?",
-            (data["completed"], todo_id, session["uid"])
-        )
+        # log_query(
+        #     "UPDATE todolist SET completed=? WHERE id=? AND uid=?",
+        #     (data["completed"], todo_id, session["uid"])
+        # )
 
     conn.commit()
     conn.close()
@@ -260,10 +221,10 @@ def delete_todo(todo_id):
         "DELETE FROM todolist WHERE id=? AND uid=?",
         (todo_id, session["uid"])
     )
-    log_query(
-        "DELETE FROM todolist WHERE id=? AND uid=?",
-        (todo_id, session["uid"])
-    )
+    # log_query(
+    #     "DELETE FROM todolist WHERE id=? AND uid=?",
+    #     (todo_id, session["uid"])
+    # )
 
     conn.commit()
     conn.close()
