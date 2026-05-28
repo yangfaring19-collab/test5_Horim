@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+    <link rel="stylesheet" href="../static/style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Login</h1>
+
+        <div class="login-box">
+
+            <input type="text" id="uid" placeholder="아이디">
+
+            <input type="password" id="upwd" placeholder="비밀번호">
+
+            <button id="login-btn">로그인</button>
+
+            <p id="login-msg"></p>
+
+        </div>
+
+    </div>
+
+    <script>
+        $("#login-btn").click(function () {
+
+            const uid = $("#uid").val();
+            const upwd = $("#upwd").val();
+
+            $.ajax({
+                url: "/login",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    uid: uid,
+                    upwd: upwd
+                }),
+                success: function (res) {
+                    if (res.success) {
+                        window.location.href = "/";
+                    } else {
+                        $("#login-msg").text("로그인 실패");
+                    }
+                },
+                error: function () {
+                    $("#login-msg").text("서버 오류");
+                }
+            });
+
+        });
+    </script>
+
+</body>
+</html>

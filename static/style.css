@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 500px;
+    margin: 50px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.todo-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#todo-title {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#add-btn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#add-btn:hover {
+    background-color: #45a049;
+}
+
+#todo-list {
+    list-style: none;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px;
+    margin-bottom: 10px;
+
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.todo-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-input {
+    padding: 8px;
+    font-size: 14px;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.edit-btn {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.save-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    background-color: #e68900;
+}
+
+.save-btn:hover {
+    background-color: #45a049;
+}
+
+.complete-btn,
+.delete-btn {
+    border: none;
+    padding: 8px 12px;
+
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.complete-btn {
+    background-color: #2196F3;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.login-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login-box input {
+    padding: 10px;
+    font-size: 16px;
+}
+
+#login-btn {
+    padding: 10px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#login-btn:hover {
+    background-color: #45a049;
+}
+
+#login-msg {
+    margin-top: 10px;
+    color: red;
+    text-align: center;
+}
+
+.hidden {display:none}
